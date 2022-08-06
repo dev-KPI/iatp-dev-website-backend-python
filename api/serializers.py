@@ -1,8 +1,16 @@
 from rest_framework import serializers
-from api.models import Member, Project
+from api.models import Member, Project, Language
 
 
-class MemberSerializer(serializers.ModelSerializer):
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
+
+
+class MemberSerializer(serializers.HyperlinkedModelSerializer):
+    language = serializers.HyperlinkedIdentityField(view_name="api:languages-detail")
+
     class Meta:
         model = Member
         fields = '__all__'
