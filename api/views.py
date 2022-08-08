@@ -18,6 +18,9 @@ class MemberViewSet(viewsets.ModelViewSet):
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['members', ]
+    search_fields = ['title', ]
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
