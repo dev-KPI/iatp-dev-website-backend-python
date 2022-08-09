@@ -1,10 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
-
+from django_filters.rest_framework import DjangoFilterBackend
 from api.serializers import MemberSerializer, ProjectSerializer, LanguageSerializer
 from api.models import Member, Project, Language
 
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class MemberViewSet(viewsets.ModelViewSet):
