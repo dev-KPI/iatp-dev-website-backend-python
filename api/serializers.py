@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from api.models import Member, Project
+from api.models import Member, Project, Language
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
 
 
 class MemberSerializer(serializers.HyperlinkedModelSerializer):
