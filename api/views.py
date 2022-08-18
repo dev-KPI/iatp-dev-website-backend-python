@@ -5,7 +5,6 @@ from api.serializers import MemberSerializer, ProjectSerializer, LanguageSeriali
 from api.models import Member, Project, Language
 
 
-
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
