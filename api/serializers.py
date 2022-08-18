@@ -7,19 +7,20 @@ class SpecializationSerializer(serializers.ModelSerializer):
         model = Specialization
         fields = '__all__'
 
+
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = '__all__'
 
 
-class MemberSerializer(serializers.HyperlinkedModelSerializer):
+class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = '__all__'
 
 
-class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
