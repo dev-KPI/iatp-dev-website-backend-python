@@ -18,7 +18,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['members', 'specialization']
-    search_fields = ['title', 'members']
+    search_fields = ['title']
 
 
 class LanguageViewSet(viewsets.ModelViewSet):

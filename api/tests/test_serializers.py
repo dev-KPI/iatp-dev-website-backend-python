@@ -18,7 +18,7 @@ class SpecializationSerializerTestCase(TestCase):
 
 class LanguageSerializerTestCase(TestCase):
     def test_ok_language(self):
-        language_1 = Language.objects.create(language='Java')
+        language_1 = Language.objects.create(id=1, language='Java')
         data = LanguageSerializer(language_1).data
         expected_data = [
             {
