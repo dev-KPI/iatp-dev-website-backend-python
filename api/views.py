@@ -9,7 +9,7 @@ class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['programming_language', ]
+    filterset_fields = ['programming_language', 'specialization']
     search_fields = ['last_name', ]
 
 
@@ -17,7 +17,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['members', ]
+    filterset_fields = ['members', 'specialization']
     search_fields = ['title', ]
 
 
