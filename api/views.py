@@ -6,8 +6,9 @@ from api.serializers import (
     ProjectSerializer,
     LanguageSerializer,
     SpecializationSerializer,
+    SocialLinksSerializer,
 )
-from api.models import Member, Project, Language, Specialization
+from api.models import Member, Project, Language, Specialization, SocialLinks
 
 
 class MemberViewSet(viewsets.ModelViewSet):
@@ -36,3 +37,8 @@ class LanguageViewSet(viewsets.ModelViewSet):
 class SpecializationViewSet(viewsets.ModelViewSet):
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
+
+
+class SocialLinksViewSet(viewsets.ModelViewSet):
+    queryset = SocialLinks.objects.all()
+    serializer_class = SocialLinksSerializer

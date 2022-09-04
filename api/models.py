@@ -26,7 +26,6 @@ class Member(models.Model):
     programming_language = models.ManyToManyField(Language)
     specialization = models.ManyToManyField(Specialization)
     email = models.EmailField(max_length=256)
-    github_member = models.URLField(max_length=200)
 
     def __str__(self):
         return "{0} {1}".format(self.last_name, self.first_name)
@@ -44,3 +43,24 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SocialLinks(models.Model):
+    GITHUB = "GH"
+    GITLAB = "GL"
+    TELEGRAM = "TG"
+    LINKENID = "LD"
+    SOCIAL_LINK_CHOICES = [
+        (GITHUB, "Github"),
+        (GITLAB, "Gitlab"),
+        (TELEGRAM, "Telegram"),
+        (LINKENID, "Linkenid"),
+    ]
+    social_link = models.CharField(
+        max_length=2, choices=SOCIAL_LINK_CHOICES, default=GITHUB
+    )
+    link = models.URLField(max_length=256)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.social_link
