@@ -19,6 +19,7 @@ class Language(models.Model):
 
 
 class Member(models.Model):
+    photo_url = models.URLField(max_length=256, null=True)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     date_of_birth = models.DateField(blank=True)
@@ -50,11 +51,13 @@ class SocialLinks(models.Model):
     GITLAB = "GL"
     TELEGRAM = "TG"
     LINKENID = "LD"
+    DISCORD = "DS"
     SOCIAL_LINK_CHOICES = [
         (GITHUB, "Github"),
         (GITLAB, "Gitlab"),
         (TELEGRAM, "Telegram"),
         (LINKENID, "Linkenid"),
+        (DISCORD, "Discord"),
     ]
     social_link = models.CharField(
         max_length=2, choices=SOCIAL_LINK_CHOICES, default=GITHUB
