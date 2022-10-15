@@ -3,8 +3,8 @@ from api.models import Language, Specialization, Member, Project, SocialLinks
 from api.serializers import (
     LanguageSerializer,
     SpecializationSerializer,
-    MemberSerializer,
-    ProjectSerializer,
+    MemberCreateSerializer,
+    ProjectCreateSerializer,
     SocialLinksSerializer,
 )
 
@@ -45,7 +45,7 @@ class ProjectSerializerTestCase(TestCase):
         project.programming_language.add(language)
         project.specialization.add(specialization)
         project.members.add(member)
-        data = ProjectSerializer(project).data
+        data = ProjectCreateSerializer(project).data
         expected_data = [
             {
                 "id": 1,
@@ -74,7 +74,7 @@ class MemberSerializerTestCase(TestCase):
         )
         member.programming_language.add(language)
         member.specialization.add(specialization)
-        data = MemberSerializer(member).data
+        data = MemberCreateSerializer(member).data
         expected_data = [
             {
                 "id": 1,
