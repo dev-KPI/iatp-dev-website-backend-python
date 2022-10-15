@@ -63,7 +63,9 @@ class SocialLinks(models.Model):
         max_length=2, choices=SOCIAL_LINK_CHOICES, default=GITHUB
     )
     link = models.URLField(max_length=256)
-    member = models.ForeignKey(Member, on_delete=models.CASCADE, null=True)
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, null=True, related_name="social_links"
+    )
 
     def __str__(self):
         return self.social_link

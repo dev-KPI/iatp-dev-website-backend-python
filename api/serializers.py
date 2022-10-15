@@ -20,9 +20,16 @@ class SocialLinksSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class SocialLinksforMemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialLinks
+        fields = ["id", "social_link", "link"]
+
+
 class MemberSerializer(serializers.ModelSerializer):
     specialization = serializers.StringRelatedField(many=True)
     programming_language = serializers.StringRelatedField(many=True)
+    social_links = SocialLinksforMemberSerializer(many=True)
 
     class Meta:
         model = Member
@@ -36,6 +43,7 @@ class MemberSerializer(serializers.ModelSerializer):
             "programming_language",
             "specialization",
             "email",
+            "social_links",
         ]
 
 
