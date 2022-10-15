@@ -15,15 +15,37 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class MemberSerializer(serializers.ModelSerializer):
+    specialization = serializers.StringRelatedField(many=True)
+    programming_language = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Member
-        fields = "__all__"
+        fields = [
+            "photo_url",
+            "first_name",
+            "last_name",
+            "date_of_birth",
+            "summary",
+            "programming_language",
+            "specialization",
+            "email",
+        ]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    specialization = serializers.StringRelatedField(many=True)
+    programming_language = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Project
-        fields = "__all__"
+        fields = [
+            "title",
+            "description",
+            "members",
+            "github_project",
+            "specialization",
+            "programming_language",
+        ]
 
 
 class SocialLinksSerializer(serializers.ModelSerializer):
