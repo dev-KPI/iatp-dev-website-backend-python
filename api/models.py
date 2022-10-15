@@ -37,7 +37,7 @@ class Project(models.Model):
     description = models.TextField(
         max_length=1000, help_text="Enter project description"
     )
-    members = models.ManyToManyField(Member)
+    members = models.ManyToManyField(Member, related_name="projects")
     github_project = models.URLField(max_length=256)
     specialization = models.ManyToManyField(Specialization)
     programming_language = models.ManyToManyField(Language)
