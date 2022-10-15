@@ -63,3 +63,15 @@ class ProjectSerializer(serializers.ModelSerializer):
             "specialization",
             "programming_language",
         ]
+
+
+class MemberCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Member
+        fields = "__all__"
+
+
+class ProjectCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = "__all__"
