@@ -4,9 +4,15 @@ from rest_framework.fields import ReadOnlyField
 from api.models import Member, Project, Language, Specialization, SocialLinks
 
 
-class SpecializationSerializer(serializers.ModelSerializer):
+class MemberCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Specialization
+        model = Member
+        fields = "__all__"
+
+
+class ProjectCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
         fields = "__all__"
 
 
@@ -22,6 +28,12 @@ class SocialLinksSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class SpecializationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialization
+        fields = "__all__"
+
+
 class SocialLinksforMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialLinks
@@ -34,7 +46,7 @@ class ProjectsforMemberSerializer(serializers.ModelSerializer):
         fields = ["id", "title"]
 
 
-class MemberSerializer(serializers.ModelSerializer):
+class MemberDetailSerializer(serializers.ModelSerializer):
     specialization = serializers.StringRelatedField(many=True)
     programming_language = serializers.StringRelatedField(many=True)
     social_links = SocialLinksforMemberSerializer(many=True)
@@ -64,7 +76,7 @@ class MemberSerializer(serializers.ModelSerializer):
         ]
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class ProjectDetailSerializer(serializers.ModelSerializer):
     specialization = serializers.StringRelatedField(many=True)
     programming_language = serializers.StringRelatedField(many=True)
     members = serializers.StringRelatedField(many=True)
@@ -80,15 +92,3 @@ class ProjectSerializer(serializers.ModelSerializer):
             "specialization",
             "programming_language",
         ]
-
-
-class MemberCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Member
-        fields = "__all__"
-
-
-class ProjectCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Project
-        fields = "__all__"

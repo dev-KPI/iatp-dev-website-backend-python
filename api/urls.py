@@ -3,13 +3,13 @@ from . import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r"members", views.MemberViewSet)
-router.register(r"projects", views.ProjectViewSet)
+router.register(r"members", views.MemberCreateViewSet, basename="members")
+router.register(r"projects", views.ProjectCreateViewSet, basename="projects")
 router.register(r"languages", views.LanguageViewSet)
-router.register(r"specializations", views.SpecializationViewSet)
 router.register(r"sociallinks", views.SocialLinksViewSet)
-router.register(r"create-members", views.MemberCreateViewSet, basename="create-members")
-router.register(r"create-projects", views.ProjectCreateViewSet, basename="create-projects")
+router.register(r"specializations", views.SpecializationViewSet)
+router.register(r"members-details", views.MemberDetailViewSet)
+router.register(r"projects-details", views.ProjectDetailViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

@@ -6,8 +6,8 @@ from api.models import Language, Specialization, Member, Project, SocialLinks
 from api.serializers import (
     LanguageSerializer,
     SpecializationSerializer,
-    MemberSerializer,
-    ProjectSerializer,
+    MemberCreateSerializer,
+    ProjectCreateSerializer,
     SocialLinksSerializer,
 )
 
@@ -60,16 +60,16 @@ class ApiTestCase(APITestCase):
         self.assertEqual(serializer_data, response.data)
 
     def test_get_member(self):
-        url = reverse("member-list")
+        url = reverse("members-list")
         response = self.client.get(url)
-        serializer_data = MemberSerializer([self.member], many=True).data
+        serializer_data = MemberCreateSerializer([self.member], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
 
     def test_get_project(self):
-        url = reverse("project-list")
+        url = reverse("projects-list")
         response = self.client.get(url)
-        serializer_data = ProjectSerializer([self.project], many=True).data
+        serializer_data = ProjectCreateSerializer([self.project], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
 
@@ -81,31 +81,31 @@ class ApiTestCase(APITestCase):
         self.assertEqual(serializer_data, response.data)
 
     def test_get_member_filter(self):
-        url = reverse("member-list")
+        url = reverse("members-list")
         response = self.client.get(
             url, data={"programming_language": [1], "specialization": [1]}
         )
-        serializer_data = MemberSerializer([self.member], many=True).data
+        serializer_data = MemberCreateSerializer([self.member], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
 
     def test_get_project_filter(self):
-        url = reverse("project-list")
+        url = reverse("projects-list")
         response = self.client.get(url, data={"members": [1], "specialization": [1]})
-        serializer_data = ProjectSerializer([self.project], many=True).data
+        serializer_data = ProjectCreateSerializer([self.project], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
 
     def test_get_member_search(self):
-        url = reverse("member-list")
+        url = reverse("members-list")
         response = self.client.get(url, data={"search": "Rezenkov"})
-        serializer_data = MemberSerializer([self.member], many=True).data
+        serializer_data = MemberCreateSerializer([self.member], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
 
     def test_get_project_search(self):
-        url = reverse("project-list")
+        url = reverse("projects-list")
         response = self.client.get(url, data={"search": "Dive-into"})
-        serializer_data = ProjectSerializer([self.project], many=True).data
+        serializer_data = ProjectCreateSerializer([self.project], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
