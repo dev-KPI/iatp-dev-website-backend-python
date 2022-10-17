@@ -3,8 +3,8 @@ from api.models import Language, Specialization, Member, Project, SocialLinks
 from api.serializers import (
     LanguageSerializer,
     SpecializationSerializer,
-    MemberSerializer,
-    ProjectSerializer,
+    MemberCreateSerializer,
+    ProjectCreateSerializer,
     SocialLinksSerializer,
 )
 
@@ -45,7 +45,7 @@ class ProjectSerializerTestCase(TestCase):
         project.programming_language.add(language)
         project.specialization.add(specialization)
         project.members.add(member)
-        data = ProjectSerializer(project).data
+        data = ProjectCreateSerializer(project).data
         expected_data = [
             {
                 "id": 1,
@@ -65,6 +65,7 @@ class MemberSerializerTestCase(TestCase):
         language = Language.objects.create(id=1, language="JS")
         specialization = Specialization.objects.create(id=1, specialization="WEB")
         member = Member.objects.create(
+            photo_url="https://drive.google.com/file/d/1KzK3R5CktEDWbexP2FsbyIn28R4qsbdF/view?usp=sharing",
             first_name="Dima",
             last_name="Rezenkov",
             date_of_birth="2004-03-05",
@@ -73,10 +74,11 @@ class MemberSerializerTestCase(TestCase):
         )
         member.programming_language.add(language)
         member.specialization.add(specialization)
-        data = MemberSerializer(member).data
+        data = MemberCreateSerializer(member).data
         expected_data = [
             {
                 "id": 1,
+                "photo_url": "https://drive.google.com/file/d/1KzK3R5CktEDWbexP2FsbyIn28R4qsbdF/view?usp=sharing",
                 "first_name": "Dima",
                 "last_name": "Rezenkov",
                 "date_of_birth": "2004-03-05",

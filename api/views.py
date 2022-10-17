@@ -2,31 +2,25 @@ from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from api.serializers import (
-    MemberSerializer,
-    ProjectSerializer,
+    MemberDetailSerializer,
+    ProjectDetailSerializer,
     LanguageSerializer,
     SpecializationSerializer,
     SocialLinksSerializer,
+    MemberCreateSerializer,
+    ProjectCreateSerializer,
 )
 from api.models import Member, Project, Language, Specialization, SocialLinks
 
 
-class MemberViewSet(viewsets.ModelViewSet):
+class MemberCreateViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
-    serializer_class = MemberSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ["programming_language", "specialization"]
-    search_fields = [
-        "last_name",
-    ]
+    serializer_class = MemberCreateSerializer
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
+class ProjectCreateViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ["members", "specialization"]
-    search_fields = ["title"]
+    serializer_class = ProjectCreateSerializer
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
@@ -42,3 +36,21 @@ class SpecializationViewSet(viewsets.ModelViewSet):
 class SocialLinksViewSet(viewsets.ModelViewSet):
     queryset = SocialLinks.objects.all()
     serializer_class = SocialLinksSerializer
+
+
+class MemberDetailViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Member.objects.all()
+    serializer_class = MemberDetailSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ["programming_language", "specialization"]
+    search_fields = [
+        "last_name",
+    ]
+
+
+class ProjectDetailViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectDetailSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ["members", "specialization"]
+    search_fields = ["title"]

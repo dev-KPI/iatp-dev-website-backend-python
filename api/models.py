@@ -19,6 +19,7 @@ class Language(models.Model):
 
 
 class Member(models.Model):
+    photo_url = models.URLField(max_length=256, null=True)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     date_of_birth = models.DateField(blank=True)
@@ -36,7 +37,7 @@ class Project(models.Model):
     description = models.TextField(
         max_length=1000, help_text="Enter project description"
     )
-    members = models.ManyToManyField(Member)
+    members = models.ManyToManyField(Member, related_name="projects")
     github_project = models.URLField(max_length=256)
     specialization = models.ManyToManyField(Specialization)
     programming_language = models.ManyToManyField(Language)
@@ -50,17 +51,21 @@ class SocialLinks(models.Model):
     GITLAB = "GL"
     TELEGRAM = "TG"
     LINKENID = "LD"
+    DISCORD = "DS"
     SOCIAL_LINK_CHOICES = [
         (GITHUB, "Github"),
         (GITLAB, "Gitlab"),
         (TELEGRAM, "Telegram"),
         (LINKENID, "Linkenid"),
+        (DISCORD, "Discord"),
     ]
     social_link = models.CharField(
         max_length=2, choices=SOCIAL_LINK_CHOICES, default=GITHUB
     )
     link = models.URLField(max_length=256)
-    member = models.ForeignKey(Member, on_delete=models.CASCADE, null=True)
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, null=True, related_name="social_links"
+    )
 
     def __str__(self):
         return self.social_link
