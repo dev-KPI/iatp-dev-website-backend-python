@@ -33,6 +33,7 @@ class Member(models.Model):
 
 
 class Project(models.Model):
+    photo_url = models.URLField(max_length=256, null=True)
     title = models.CharField(max_length=64)
     description = models.TextField(
         max_length=1000, help_text="Enter project description"
