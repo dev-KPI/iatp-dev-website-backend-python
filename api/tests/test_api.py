@@ -2,13 +2,14 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.models import Language, Specialization, Member, Project, SocialLinks
+from api.models import Language, Specialization, Member, Project, SocialLinks, GitHubLinks
 from api.serializers import (
     LanguageSerializer,
     SpecializationSerializer,
     MemberCreateSerializer,
     ProjectCreateSerializer,
     SocialLinksSerializer,
+    GitHubLinksSerializer
 )
 
 
@@ -32,13 +33,15 @@ class ApiTestCase(APITestCase):
         self.project = Project.objects.create(
             title="Dive-into",
             description="Our first project",
-            github_project="https://github.com/RezenkovD",
         )
         self.project.specialization.add(self.specialization)
         self.project.programming_language.add(self.language_1)
         self.project.members.add(self.member)
         self.link = SocialLinks.objects.create(
             id=1, social_link="GH", link="https://github.com", member=self.member
+        )
+        self.githublink = GitHubLinks.objects.create(
+            id=2, title="Backend", link="https://github.com", project=self.project
         )
 
     def test_get_language(self):
@@ -77,6 +80,13 @@ class ApiTestCase(APITestCase):
         url = reverse("sociallinks-list")
         response = self.client.get(url)
         serializer_data = SocialLinksSerializer([self.link], many=True).data
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(serializer_data, response.data)
+
+    def test_get_github_link(self):
+        url = reverse("githublinks-list")
+        response = self.client.get(url)
+        serializer_data = GitHubLinksSerializer([self.githublink], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
 
