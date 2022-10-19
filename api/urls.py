@@ -8,6 +8,7 @@ router.register(r"projects", views.ProjectCreateViewSet, basename="projects")
 router.register(r"languages", views.LanguageViewSet)
 router.register(r"sociallinks", views.SocialLinksViewSet)
 router.register(r"specializations", views.SpecializationViewSet)
+router.register(r"githublinks", views.GitHubLinksViewSet, basename="githublinks")
 router.register(r"members-details", views.MemberDetailViewSet)
 router.register(r"projects-details", views.ProjectDetailViewSet)
 

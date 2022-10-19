@@ -9,8 +9,16 @@ from api.serializers import (
     SocialLinksSerializer,
     MemberCreateSerializer,
     ProjectCreateSerializer,
+    GitHubLinksSerializer,
 )
-from api.models import Member, Project, Language, Specialization, SocialLinks
+from api.models import (
+    Member,
+    Project,
+    Language,
+    Specialization,
+    SocialLinks,
+    GitHubLinks,
+)
 
 
 class MemberCreateViewSet(viewsets.ModelViewSet):
@@ -31,6 +39,11 @@ class LanguageViewSet(viewsets.ModelViewSet):
 class SpecializationViewSet(viewsets.ModelViewSet):
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
+
+
+class GitHubLinksViewSet(viewsets.ModelViewSet):
+    queryset = GitHubLinks.objects.all()
+    serializer_class = GitHubLinksSerializer
 
 
 class SocialLinksViewSet(viewsets.ModelViewSet):
