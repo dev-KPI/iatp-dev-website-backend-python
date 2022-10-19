@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
+
 from api.serializers import (
     MemberDetailSerializer,
     ProjectDetailSerializer,
@@ -22,31 +24,37 @@ from api.models import (
 
 
 class MemberCreateViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Member.objects.all()
     serializer_class = MemberCreateSerializer
 
 
 class ProjectCreateViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Project.objects.all()
     serializer_class = ProjectCreateSerializer
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
 
 
 class SpecializationViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
 
 
 class GitHubLinksViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = GitHubLinks.objects.all()
     serializer_class = GitHubLinksSerializer
 
 
 class SocialLinksViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = SocialLinks.objects.all()
     serializer_class = SocialLinksSerializer
 
