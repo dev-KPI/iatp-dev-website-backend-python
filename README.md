@@ -72,6 +72,13 @@ python manage.py migrate
 ```
 
 
+### 👑 Superuser
+Run the command in the directory with file manage.py. Follow the instructions
+##### Create superuser
+```bash
+python manage.py createsuperuser
+```
+
 ### 🚀 Start
 Run the command in the directory with file manage.py
 ##### Run project
