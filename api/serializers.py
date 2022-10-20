@@ -1,7 +1,13 @@
 from rest_framework import serializers
-from rest_framework.fields import ReadOnlyField
 
-from api.models import Member, Project, Language, Specialization, SocialLinks
+from api.models import (
+    Member,
+    Project,
+    Language,
+    Specialization,
+    SocialLinks,
+    GitHubLinks,
+)
 
 
 class MemberCreateSerializer(serializers.ModelSerializer):
@@ -32,6 +38,18 @@ class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Specialization
         fields = "__all__"
+
+
+class GitHubLinksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GitHubLinks
+        fields = "__all__"
+
+
+class GitHubLinksforSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GitHubLinks
+        fields = ["id", "title", "link"]
 
 
 class SocialLinksforMemberSerializer(serializers.ModelSerializer):
@@ -80,15 +98,17 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     specialization = serializers.StringRelatedField(many=True)
     programming_language = serializers.StringRelatedField(many=True)
     members = serializers.StringRelatedField(many=True)
+    github_links = GitHubLinksforSerializer(many=True)
 
     class Meta:
         model = Project
         fields = [
             "id",
+            "photo_url",
             "title",
             "description",
             "members",
-            "github_project",
             "specialization",
             "programming_language",
+            "github_links",
         ]

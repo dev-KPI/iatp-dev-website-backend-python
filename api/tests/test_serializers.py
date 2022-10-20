@@ -1,11 +1,12 @@
 from django.test import TestCase
-from api.models import Language, Specialization, Member, Project, SocialLinks
+from api.models import Language, Specialization, Member, Project, SocialLinks, GitHubLinks
 from api.serializers import (
     LanguageSerializer,
     SpecializationSerializer,
     MemberCreateSerializer,
     ProjectCreateSerializer,
     SocialLinksSerializer,
+    GitHubLinksSerializer,
 )
 
 
@@ -28,9 +29,10 @@ class LanguageSerializerTestCase(TestCase):
 class ProjectSerializerTestCase(TestCase):
     def test_ok_project(self):
         project = Project.objects.create(
+            id=1,
+            photo_url="http://127.0.0.1:8000/docs#/",
             title="Dive-into",
             description="Our first project",
-            github_project="https://github.com/RezenkovD",
         )
         language = Language.objects.create(id=1, language="Java")
         specialization = Specialization.objects.create(id=1, specialization="Android")
@@ -49,9 +51,9 @@ class ProjectSerializerTestCase(TestCase):
         expected_data = [
             {
                 "id": 1,
+                "photo_url": "http://127.0.0.1:8000/docs#/",
                 "title": "Dive-into",
                 "description": "Our first project",
-                "github_project": "https://github.com/RezenkovD",
                 "members": [1],
                 "specialization": [1],
                 "programming_language": [1],
@@ -115,6 +117,41 @@ class SocialLinksSerializersTestCase(TestCase):
                 "social_link": "GH",
                 "link": "https://github.com",
                 "member": 1,
+            }
+        ]
+        self.assertEqual(expected_data[0], data)
+
+
+class GitHubLinksSerializerTestCase(TestCase):
+    def test_ok_githublinks(self):
+        project = Project.objects.create(
+            photo_url="http://127.0.0.1:8000/docs#/",
+            title="Dive-into",
+            description="Our first project",
+        )
+        language = Language.objects.create(id=1, language="Java")
+        specialization = Specialization.objects.create(id=1, specialization="Android")
+        member = Member.objects.create(
+            id=1,
+            first_name="Dima",
+            last_name="Rezenkov",
+            date_of_birth="2004-03-05",
+            summary="From Ukraine",
+            email="rezenkovdmitro@gmail.com",
+        )
+        project.programming_language.add(language)
+        project.specialization.add(specialization)
+        project.members.add(member)
+        githublink = GitHubLinks.objects.create(
+            id=1, title="Backend", link="https://github.com", project=project
+        )
+        data = GitHubLinksSerializer(githublink).data
+        expected_data = [
+            {
+                "id": 1,
+                "title": "Backend",
+                "link": "https://github.com",
+                "project": 1,
             }
         ]
         self.assertEqual(expected_data[0], data)

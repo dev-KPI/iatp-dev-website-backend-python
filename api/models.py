@@ -33,12 +33,12 @@ class Member(models.Model):
 
 
 class Project(models.Model):
+    photo_url = models.URLField(max_length=256, null=True)
     title = models.CharField(max_length=64)
     description = models.TextField(
         max_length=1000, help_text="Enter project description"
     )
     members = models.ManyToManyField(Member, related_name="projects")
-    github_project = models.URLField(max_length=256)
     specialization = models.ManyToManyField(Specialization)
     programming_language = models.ManyToManyField(Language)
 
@@ -69,3 +69,14 @@ class SocialLinks(models.Model):
 
     def __str__(self):
         return self.social_link
+
+
+class GitHubLinks(models.Model):
+    title = models.CharField(max_length=64)
+    link = models.URLField(max_length=256)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, null=True, related_name="github_links"
+    )
+
+    def __str__(self):
+        return self.title
